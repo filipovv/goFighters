@@ -4,6 +4,11 @@ package app.models;
 import java.util.Random;
 
 public abstract class Hero {
+    private static final double ATTACK_LOWER_BOUND_MULTIPLIER = 0.8;
+    private static final double ATTACK_HIGHER_BOUND_MULTIPLIER = 1.2;
+    private static final double DEFENCE_LOWER_BOUND_MULTIPLIER = 0.8;
+    private static final double DEFENCE_HIGHER_BOUND_MULTIPLIER = 1.2;
+
     private String name;
     private int healthPoints;
     private int attackPoints;
@@ -16,20 +21,24 @@ public abstract class Hero {
         this.setArmorPoints(armorPoints);
     }
 
+    int generateRandomNumberForChanceCalculation() {
+        return this.calculateRandomNumberFromBounds(1, 100);
+    }
+
     int calculateRandomNumberFromBounds(int lowerBound, int higherBound) {
         Random random = new Random();
         return random.nextInt(higherBound - lowerBound) + lowerBound;
     }
 
     public int attack() {
-        int lowerBound = (int) (this.getAttackPoints() * 0.8);
-        int higherBound = (int) (this.getAttackPoints() * 1.2);
+        int lowerBound = (int) (this.getAttackPoints() * ATTACK_LOWER_BOUND_MULTIPLIER);
+        int higherBound = (int) (this.getAttackPoints() * ATTACK_HIGHER_BOUND_MULTIPLIER);
         return this.calculateRandomNumberFromBounds(lowerBound, higherBound);
     }
 
     public String takeDamage(int damageTaken) {
-        int lowerBound = (int) (this.getArmorPoints() * 0.8);
-        int higherBound = (int) (this.getArmorPoints() * 1.2);
+        int lowerBound = (int) (this.getArmorPoints() * DEFENCE_LOWER_BOUND_MULTIPLIER);
+        int higherBound = (int) (this.getArmorPoints() * DEFENCE_HIGHER_BOUND_MULTIPLIER);
         int shieldPoints = this.calculateRandomNumberFromBounds(lowerBound, higherBound);
 
         int healthPointsTaken = damageTaken - shieldPoints;
@@ -39,7 +48,11 @@ public abstract class Hero {
             this.setHealthPoints(0);
             return String.format("Hero %s is dead.", this.getName());
         }
-        return String.format("Hero %s took %d damage and is left with %d health points.", this.getName(), healthPointsTaken, this.getHealthPoints());
+        return String.format("%s %s took %d damage and is left with %d health points.", this.getHeroType(), this.getName(), healthPointsTaken, this.getHealthPoints());
+    }
+
+    private String getHeroType() {
+        return this.getClass().getSimpleName();
     }
 
     public boolean isAlive() {
@@ -74,7 +87,7 @@ public abstract class Hero {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 }

@@ -4,10 +4,12 @@ import app.models.*;
 
 public class Application {
     public static void main(String[] args) {
-        Hero firstHero = new Knight("The Hound");
-        Hero secondHero = new Assassin("Ezio");
+        Hero knight = new Knight("The Hound");
+        Hero assassin = new Assassin("Altaïr");
+        Hero warrior = new Warrior("Borimechkata");
+        Hero monk = new Monk("Gandalf");
 
-        GameEngine gameEngine = new GameEngine(firstHero, secondHero);
+        GameEngine gameEngine = new GameEngine(warrior, knight);
 
         System.out.println(gameEngine.fight());
     }

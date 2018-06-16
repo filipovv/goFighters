@@ -11,15 +11,15 @@ public class GameEngine {
         this.secondHero = secondHero;
     }
 
-    public String attack(Hero firstHero, Hero secondHero) {
-        StringBuilder result = new StringBuilder();
-        result.append(String.format("%s is attacking %s.", firstHero.getName(), secondHero.getName())).append(System.lineSeparator());
-        result.append(secondHero.takeDamage(firstHero.attack())).append(System.lineSeparator());
-        return result.toString();
+    private String attack(Hero firstHero, Hero secondHero) {
+        return String.format("%s is attacking %s.", firstHero.getName(), secondHero.getName()) + System.lineSeparator() +
+                secondHero.takeDamage(firstHero.attack()) + System.lineSeparator();
     }
 
     public String fight() {
         StringBuilder fightResult = new StringBuilder();
+        fightResult.append("The battle is about to begin!").append(System.lineSeparator())
+                .append(String.format("Hero one - %s%nHero two - %s%n", this.firstHero.toString(), this.secondHero.toString())).append("Fight!").append(System.lineSeparator());
         while (this.firstHero.isAlive() && this.secondHero.isAlive()) {
             fightResult.append(this.attack(firstHero, secondHero)).append(System.lineSeparator());
             if (!secondHero.isAlive()) {
