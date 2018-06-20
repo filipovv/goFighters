@@ -44,14 +44,4 @@ public class Assassin extends Hero {
     String getHeroType() {
         return HERO_TYPE;
     }
-
-    /**
-     * Method used to provide summed information about the object of type Knight.
-     *
-     * @return String value, representing the information about the object.
-     */
-    @Override
-    public String toString() {
-        return String.format("Assassin with the following stats:%nHealth points - %d%nAttack points - %d%nArmor points - %d%n", ASSASSIN_HEALTH_POINTS, ASSASSIN_ATTACK_POINTS, ASSASSIN_ARMOR_POINTS);
-    }
 }

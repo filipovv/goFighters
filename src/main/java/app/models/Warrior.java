@@ -28,14 +28,4 @@ public class Warrior extends Hero {
     String getHeroType() {
         return HERO_TYPE;
     }
-
-    /**
-     * Method used to provide summed information about the object of type Warrior.
-     *
-     * @return String value, representing the information about the object.
-     */
-    @Override
-    public String toString() {
-        return String.format("Warrior with the following stats:%nHealth points - %d%nAttack points - %d%nArmor points - %d%n", BASIC_HERO_HEALTH_POINTS, BASIC_HERO_ATTACK_POINTS, BASIC_HERO_ARMOR_POINTS);
-    }
 }

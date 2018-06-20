@@ -29,10 +29,10 @@ public class Monk extends Hero {
     @Override
     public String takeDamage(int damageTaken) {
         int generatedRandom = this.generateRandomNumberForChanceCalculation();
-        if (generatedRandom > BLOCK_CHANCE) {
-            return super.takeDamage(damageTaken);
+        if (generatedRandom <= BLOCK_CHANCE) {
+            return String.format("Monk %s successfully blocked the attack.", this.getName());
         }
-        return String.format("Monk %s successfully blocked the attack.", this.getName());
+        return super.takeDamage(damageTaken);
     }
 
     /**
@@ -43,15 +43,5 @@ public class Monk extends Hero {
     @Override
     String getHeroType() {
         return HERO_TYPE;
-    }
-
-    /**
-     * Method used to provide summed information about the object of type Knight.
-     *
-     * @return String value, representing the information about the object.
-     */
-    @Override
-    public String toString() {
-        return String.format("Monk with the following stats:%nHealth points - %d%nAttack points - %d%nArmor points - %d%n", MONK_HEALTH_POINTS, MONK_ATTACK_POINTS, MONK_ARMOR_POINTS);
     }
 }
