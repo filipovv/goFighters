@@ -28,8 +28,12 @@ public class GameEngine {
      * @return String value, representing the outcome of the current attack.
      */
     private String attack(Hero firstHero, Hero secondHero) {
-        return String.format("%s is attacking %s.", firstHero.getName(), secondHero.getName()) + System.lineSeparator() +
-                secondHero.takeDamage(firstHero.attack()) + System.lineSeparator();
+        StringBuilder attackOutcome = new StringBuilder();
+        attackOutcome.append(String.format("%s is attacking %s.", firstHero.getName(), secondHero.getName())).append(System.lineSeparator()).append(secondHero.takeDamage(firstHero.attack())).append(System.lineSeparator());
+        if (!secondHero.isAlive()) {
+            attackOutcome.append(String.format("%n%s is the winner!", this.firstHero.getName())).append(System.lineSeparator());
+        }
+        return attackOutcome.toString();
     }
 
     /**
@@ -41,17 +45,12 @@ public class GameEngine {
     public String fight() {
         StringBuilder fightResult = new StringBuilder();
         fightResult.append(this.gameIntro());
-        while (this.firstHero.isAlive() && this.secondHero.isAlive()) {
+        while (this.firstHero.isAlive()) {
             fightResult.append(this.attack(firstHero, secondHero)).append(System.lineSeparator());
             if (!secondHero.isAlive()) {
-                fightResult.append(String.format("%s is the winner!", this.firstHero.getName())).append(System.lineSeparator());
                 break;
             }
             fightResult.append(this.attack(secondHero, firstHero)).append(System.lineSeparator());
-            if (!firstHero.isAlive()) {
-                fightResult.append(String.format("%s is the winner!", this.secondHero.getName())).append(System.lineSeparator());
-                break;
-            }
         }
         return fightResult.toString();
     }

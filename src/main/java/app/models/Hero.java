@@ -48,9 +48,9 @@ public abstract class Hero {
      * @param higherBound The higher bound for the random number generator
      * @return Integer value, a random number between the two bounds
      */
-    int calculateRandomNumberFromBounds(int lowerBound, int higherBound) {
+    private int calculateRandomNumberFromBounds(int lowerBound, int higherBound) {
         Random random = new Random();
-        return random.nextInt(higherBound - lowerBound) + lowerBound;
+        return random.nextInt((higherBound - lowerBound) + 1) + lowerBound;
     }
 
     /**
@@ -106,8 +106,8 @@ public abstract class Hero {
      *
      * @return Integer value, representing the health points of the hero.
      */
-    public int getHealthPoints() {
-        return healthPoints;
+    private int getHealthPoints() {
+        return this.healthPoints;
     }
 
     /**
@@ -115,7 +115,7 @@ public abstract class Hero {
      *
      * @param healthPoints Integer value to be set as the health points of the hero.
      */
-    void setHealthPoints(int healthPoints) {
+    private void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
     }
 
@@ -125,7 +125,7 @@ public abstract class Hero {
      * @return Integer value, representing the attack points of the hero.
      */
     int getAttackPoints() {
-        return attackPoints;
+        return this.attackPoints;
     }
 
     /**
@@ -142,8 +142,8 @@ public abstract class Hero {
      *
      * @return Integer value, representing the armor points of the hero.
      */
-    public int getArmorPoints() {
-        return armorPoints;
+    private int getArmorPoints() {
+        return this.armorPoints;
     }
 
     /**
@@ -161,7 +161,7 @@ public abstract class Hero {
      * @return String value, representing the name of the hero.
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
