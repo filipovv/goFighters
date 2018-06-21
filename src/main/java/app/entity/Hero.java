@@ -1,4 +1,4 @@
-package app.models;
+package app.entity;
 
 
 import java.util.Random;
@@ -104,6 +104,21 @@ public abstract class Hero {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Hero)) {
+            return false;
+        }
+
+        Hero hero = (Hero) obj;
+        boolean check = this.getName().equalsIgnoreCase(hero.getName()) && this.getHeroType().equalsIgnoreCase(hero.getHeroType());
+        return check;
+    }
+
+    @Override
     public String toString() {
         return String.format("%s with the following stats:%nHealth points - %d%nAttack points - %d%nArmor points - %d%n",
                 this.getHeroType(), this.getHealthPoints(), this.getAttackPoints(), this.getArmorPoints());
@@ -178,6 +193,9 @@ public abstract class Hero {
      * @param name String value to be set as the name of the hero.
      */
     private void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name of the hero cannot be null or empty.");
+        }
         this.name = name;
     }
 }

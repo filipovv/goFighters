@@ -1,4 +1,4 @@
-package app.models;
+package app.entity;
 
 /**
  * Class Warrior implements the properties and the functionality of a Warrior type hero.

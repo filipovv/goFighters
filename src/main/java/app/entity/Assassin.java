@@ -1,4 +1,4 @@
-package app.models;
+package app.entity;
 
 /**
  * Class Assassin implements the properties and the functionality of a Assassin type hero.

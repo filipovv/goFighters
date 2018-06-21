@@ -1,6 +1,6 @@
 package app;
 
-import app.models.Hero;
+import app.entity.Hero;
 
 /**
  * GameEngine simulates the fight outcome between two heroes. Heroes fight until one of them dies.
@@ -16,8 +16,8 @@ public class GameEngine {
      * @param secondHero This is the second hero
      */
     public GameEngine(Hero firstHero, Hero secondHero) {
-        this.firstHero = firstHero;
-        this.secondHero = secondHero;
+        this.setFirstHero(firstHero);
+        this.setSecondHero(secondHero);
     }
 
     /**
@@ -69,5 +69,22 @@ public class GameEngine {
     private String gameIntro() {
         return "The battle is about to begin!" + System.lineSeparator() +
                 String.format("Hero one - %s%nHero two - %s%n", this.firstHero.toString(), this.secondHero.toString()) + "Fight!" + System.lineSeparator();
+    }
+
+    private void setFirstHero(Hero firstHero) {
+        if (firstHero == null) {
+            throw new IllegalArgumentException("First hero cannot be null");
+        }
+        this.firstHero = firstHero;
+    }
+
+    private void setSecondHero(Hero secondHero) {
+        if (secondHero == null) {
+            throw new IllegalArgumentException("Second hero cannot be null.");
+        }
+        if (this.firstHero.equals(secondHero)) {
+            throw new IllegalArgumentException("Second hero cannot be the same as the first one. Two are needed to play this game.");
+        }
+        this.secondHero = secondHero;
     }
 }

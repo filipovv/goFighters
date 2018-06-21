@@ -1,4 +1,4 @@
-package app.models;
+package app.entity;
 
 /**
  * Class Knight implements the properties and the functionality of a Knight type hero.
