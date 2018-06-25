@@ -2,66 +2,10 @@ package app.entity;
 
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.number.OrderingComparison.greaterThan;
 import static org.junit.Assert.*;
 
 public class KnightTests {
     private static final int KNIGHT_CRITICAL_MULTIPLIER = 2;
-
-    @Test
-    public void testIfHeroIsInitialised() {
-        //given
-        Hero knight = new Knight("testName");
-        //when
-        String actualName = knight.getName();
-        //then
-        assertEquals("Created hero name and expected does not match.", "testName", actualName);
-    }
-
-    @Test
-    public void testIfSettingNullAsNameThrowsException() {
-        try {
-            Hero knight = new Knight(null);
-            fail("Expected exception did not occur. Name of hero cannot be null.");
-        } catch (IllegalArgumentException e) {
-            //If this block is reached there is no need for the exception to be handled.
-        }
-    }
-
-    @Test
-    public void testIfSettingEmptyStringAsNameThrowsException() {
-        try {
-            //given
-            String name = "";
-            //then
-            Hero knight = new Knight(name);
-            fail("Expected exception did not occur. Name of hero cannot be empty.");
-        } catch (IllegalArgumentException e) {
-            //If this block is reached there is no need for the exception to be handled.
-        }
-    }
-
-    @Test
-    public void testIfAttackReturnsDamageValue() {
-        //given
-        Hero knight = new Knight("testName");
-        int attackDamage = 0;
-        //when
-        attackDamage = knight.attack();
-        //then
-        assertThat("Damage should be greater than 0.", attackDamage, greaterThan(0));
-    }
-
-    @Test
-    public void testIfDamageTakenReturnsValue() {
-        //given
-        Hero knight = new Knight("testName");
-        //when
-        String takeDamageOutput = knight.takeDamage(80);
-        //then
-        assertNotNull("Return value of method damageTaken() cannot be null.", takeDamageOutput);
-    }
 
     @Test
     public void testIfGetHeroTypeMethodReturnsCorrectHeroType() {

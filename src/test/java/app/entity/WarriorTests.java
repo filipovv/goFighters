@@ -63,7 +63,7 @@ public class WarriorTests {
     }
 
     @Test
-    public void damageReturnedIsIntHeCorrectRange() {
+    public void testIfDamageReturnedIsInTheCorrectRange() {
         //given
         Hero warrior = new Warrior("testName");
         int actualDamage = warrior.getAttackPoints();
@@ -72,7 +72,7 @@ public class WarriorTests {
         //when
         int damageAfterCalculation = warrior.attack();
         //then
-        assertTrue("Damage for Warrior after calculation is not in the correct range.", lowerBound < damageAfterCalculation && damageAfterCalculation <= higherBound);
+        assertTrue("Damage for Warrior after calculation is not in the correct range.", lowerBound <= damageAfterCalculation && damageAfterCalculation <= higherBound);
     }
 
     @Test
