@@ -1,6 +1,7 @@
 package app.entity;
 
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -116,6 +117,11 @@ public abstract class Hero {
         Hero hero = (Hero) obj;
         boolean check = this.getName().equalsIgnoreCase(hero.getName()) && this.getHeroType().equalsIgnoreCase(hero.getHeroType());
         return check;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getName(), this.getHeroType());
     }
 
     @Override
