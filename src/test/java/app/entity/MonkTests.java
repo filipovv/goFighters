@@ -8,19 +8,23 @@ public class MonkTests {
 
     @Test
     public void testIfGetHeroTypeMethodReturnsCorrectHeroType() {
-        //given
+        // Given
         Hero monk = new Monk("testName");
+
+        // When
         String actualHeroType = monk.getHeroType();
-        //then
+
+        // Then
         assertEquals("Incorrect return value of hero type Monk.", "Monk", actualHeroType);
     }
 
     @Test
     public void testIfBlockOccurs() {
-        //given
+        // Given
         Hero monk = new Monk("testName");
         boolean isBlockPossible = false;
-        //when
+
+        // When
         for (int i = 0; i < 100; i++) {
             String temp = monk.takeDamage(40);
             if (temp.contains("successfully blocked")) {
@@ -28,7 +32,8 @@ public class MonkTests {
                 break;
             }
         }
-        //then
+
+        // Then
         assertTrue("Monk should be able to block an upcoming attack.", isBlockPossible);
     }
 }

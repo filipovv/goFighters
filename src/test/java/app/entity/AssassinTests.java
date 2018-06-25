@@ -9,20 +9,23 @@ public class AssassinTests {
 
     @Test
     public void testIfGetHeroTypeMethodReturnsCorrectHeroType() {
-        //given
+        // Given
         Hero assassin = new Assassin("testName");
-        //when
+
+        // When
         String actualHeroType = assassin.getHeroType();
-        //then
+
+        // Then
         assertEquals("Incorrect return value of hero type Assassin.", "Assassin", actualHeroType);
     }
 
     @Test
     public void testIfCriticalOccur() {
-        //given
+        // Given
         Hero assassin = new Assassin("testName");
         boolean isCritPossible = false;
-        //when
+
+        // When
         for (int i = 0; i < 100; i++) {
             int temp = assassin.attack();
             if (temp == assassin.getAttackPoints() * ASSASSIN_CRITICAL_MULTIPLIER) {
@@ -30,7 +33,8 @@ public class AssassinTests {
                 break;
             }
         }
-        //then
+
+        // Then
         assertTrue("Assassin should be able to critically strike.", isCritPossible);
     }
 }

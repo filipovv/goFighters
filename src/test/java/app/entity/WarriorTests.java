@@ -12,10 +12,13 @@ public class WarriorTests {
 
     @Test
     public void testIfHeroIsInitialised() {
-        //given
+        // Given
         Hero warrior = new Warrior("testName");
+
+        // When
         String actualHeroName = warrior.getName();
-        //then
+
+        // Then
         assertEquals("Created hero name and expected does not match.", "testName", actualHeroName);
     }
 
@@ -32,9 +35,10 @@ public class WarriorTests {
     @Test
     public void testIfSettingEmptyStringAsNameThrowsException() {
         try {
-            //given
+            // Given
             String name = "";
-            //then
+
+            // Then
             Hero warrior = new Warrior(name);
             fail("Expected exception did not occur. Name of hero cannot be empty.");
         } catch (IllegalArgumentException e) {
@@ -44,53 +48,65 @@ public class WarriorTests {
 
     @Test
     public void testIfHeroIsKillable() {
+        // Given
         Hero warrior = new Warrior("testName");
-        //when
+
+        // When
         warrior.takeDamage(Integer.MAX_VALUE);
-        //then
+
+        // Then
         assertFalse("Hero should be able to die.", warrior.isAlive());
     }
 
     @Test
     public void testIfAttackReturnsDamageValue() {
+        // Given
         Hero warrior = new Warrior("testName");
-        //given
         int attackDamage = 0;
-        //when
+
+        // When
         attackDamage = warrior.attack();
-        //then
+
+        // Then
         assertThat("Attack damage should be greater than 0.", attackDamage, greaterThan(0));
     }
 
     @Test
     public void testIfDamageReturnedIsInTheCorrectRange() {
-        //given
+        // Given
         Hero warrior = new Warrior("testName");
         int actualDamage = warrior.getAttackPoints();
         int lowerBound = (int) (actualDamage * LOWER_BOUND_FOR_DAMAGE_CALCULATION);
         int higherBound = (int) (actualDamage * HIGHER_BOUND_FOR_DAMAGE_CALCULATION);
-        //when
+
+        // When
         int damageAfterCalculation = warrior.attack();
-        //then
+
+        // Then
         assertTrue("Damage for Warrior after calculation is not in the correct range.", lowerBound <= damageAfterCalculation && damageAfterCalculation <= higherBound);
     }
 
     @Test
     public void testIfDamageTakenReturnsValue() {
-        //given
+        // Given
         Hero warrior = new Warrior("testName");
-        //when
+
+        // When
         String takeDamageOutput = warrior.takeDamage(80);
-        //then
+
+        // Then
         assertNotNull("Return value of method damageTaken() cannot be null.", takeDamageOutput);
     }
 
     @Test
     public void testIfGetHeroTypeMethodReturnsCorrectHeroType() {
-        //given
+        // Given
         Hero warrior = new Warrior("testName");
+
+        // When
         String actualHeroType = warrior.getHeroType();
-        //then
+
+        // Then
         assertEquals("Incorrect return value of hero type Warrior.", "Warrior", actualHeroType);
     }
 }

@@ -32,11 +32,13 @@ public class GameEngineTests {
 
     @Test
     public void testIfFightMethodReturnsFightLog() {
-        //given
+        // Given
         GameEngine gameEngine = new GameEngine(firstHero, secondHero);
-        //when
+
+        // When
         String gameLog = gameEngine.fight();
-        //then
+
+        // Then
         assertNotNull("Fight method in the Game Engine should return a game log.", gameLog);
         assertFalse("Fight log returned from fight method in Game Engine should not be empty.", gameLog.isEmpty());
     }

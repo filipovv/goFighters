@@ -9,20 +9,23 @@ public class KnightTests {
 
     @Test
     public void testIfGetHeroTypeMethodReturnsCorrectHeroType() {
-        //given
+        // Given
         Hero knight = new Knight("testName");
-        //when
+
+        // When
         String actualHeroType = knight.getHeroType();
-        //then
+
+        // Then
         assertEquals("Incorrect return value of hero type Knight.", "Knight", actualHeroType);
     }
 
     @Test
     public void testIfCriticalOccurs() {
-        //given
+        // Given
         Hero knight = new Knight("testName");
         boolean isCritPossible = false;
-        //when
+
+        // When
         for (int i = 0; i < 100; i++) {
             int temp = knight.attack();
             if (temp == knight.getAttackPoints() * KNIGHT_CRITICAL_MULTIPLIER) {
@@ -30,16 +33,18 @@ public class KnightTests {
                 break;
             }
         }
-        //then
+
+        // Then
         assertTrue("Knight should be able to critically strike.", isCritPossible);
     }
 
     @Test
     public void testIfBlockOccurs() {
-        //given
+        // Given
         Hero knight = new Knight("testName");
         boolean isBlockPossible = false;
-        //when
+
+        // When
         for (int i = 0; i < 100; i++) {
             String temp = knight.takeDamage(50);
             if (temp.contains("successfully blocked")) {
@@ -47,7 +52,8 @@ public class KnightTests {
                 break;
             }
         }
-        //then
+
+        // Then
         assertTrue("Knight should be able to block an upcoming attack.", isBlockPossible);
     }
 
