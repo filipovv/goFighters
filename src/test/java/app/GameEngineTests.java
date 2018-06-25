@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class GameEngineTests {
     private Hero firstHero;
@@ -19,9 +20,14 @@ public class GameEngineTests {
         this.secondHero = new Monk("secondTestHero");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIfAddingNullPlayerThrowsException() {
-        GameEngine gameEngine = new GameEngine(firstHero, null);
+        try {
+            GameEngine gameEngine = new GameEngine(firstHero, null);
+            fail("Expected exception did not occur. Hero in game engine cannot be null.");
+        } catch (IllegalArgumentException iae) {
+            //If this block is reached there is no need for the exception to be handled.
+        }
     }
 
     @Test
@@ -35,8 +41,13 @@ public class GameEngineTests {
         assertFalse("Fight log returned from fight method in Game Engine should not be empty.", gameLog.isEmpty());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIfAddingOneHeroAsBothHeroesInTheGameEngine() {
-        GameEngine gameEngine = new GameEngine(firstHero, firstHero);
+        try {
+            GameEngine gameEngine = new GameEngine(firstHero, firstHero);
+            fail("Expected exception did not occur. Second hero in game engine cannot be the same as the first one.");
+        } catch (IllegalArgumentException iea) {
+            //If this block is reached there is no need for the exception to be handled.
+        }
     }
 }

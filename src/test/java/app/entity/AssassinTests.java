@@ -22,7 +22,7 @@ public class AssassinTests {
     public void testIfSettingNullAsNameThrowsException() {
         try {
             Hero assassin = new Assassin(null);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be null.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }
@@ -35,7 +35,7 @@ public class AssassinTests {
             String name = "";
             //then
             Hero assassin = new Assassin(name);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be empty.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }
@@ -48,7 +48,7 @@ public class AssassinTests {
         //when
         assassin.takeDamage(Integer.MAX_VALUE);
         //then
-        assertFalse("Hero is not able to die.", assassin.isAlive());
+        assertFalse("Hero should be able to die.", assassin.isAlive());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class AssassinTests {
         //when
         attackDamage = assassin.attack();
         //then
-        assertThat("Damage should be greater than 0.", attackDamage, greaterThan(0));
+        assertThat("Attack damage should be greater than 0.", attackDamage, greaterThan(0));
     }
 
     @Test
@@ -79,23 +79,23 @@ public class AssassinTests {
         //when
         String actualHeroType = assassin.getHeroType();
         //then
-        assertEquals("Incorrect return value of hero type Knight.", "Assassin", actualHeroType);
+        assertEquals("Incorrect return value of hero type Assassin.", "Assassin", actualHeroType);
     }
 
     @Test
     public void testIfCriticalOccur() {
         //given
         Hero assassin = new Assassin("testName");
-        boolean maxDamageOutput = false;
+        boolean isCritPossible = false;
         //when
         for (int i = 0; i < 100; i++) {
             int temp = assassin.attack();
             if (temp == assassin.getAttackPoints() * ASSASSIN_CRITICAL_MULTIPLIER) {
-                maxDamageOutput = true;
+                isCritPossible = true;
                 break;
             }
         }
         //then
-        assertTrue(maxDamageOutput);
+        assertTrue("Assassin should be able to critically strike.", isCritPossible);
     }
 }

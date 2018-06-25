@@ -23,7 +23,7 @@ public class MonkTests {
     public void testIfSettingNullAsNameThrowsException() {
         try {
             Hero monk = new Monk(null);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be null.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }
@@ -36,7 +36,7 @@ public class MonkTests {
             String name = "";
             //then
             Hero monk = new Monk(name);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be empty.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }
@@ -50,7 +50,7 @@ public class MonkTests {
         //when
         attackDamage = monk.attack();
         //then
-        assertThat("Damage should be greater than 0.", attackDamage, greaterThan(0));
+        assertThat("Attack damage should be greater than 0.", attackDamage, greaterThan(0));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class MonkTests {
         Hero monk = new Monk("testName");
         String actualHeroType = monk.getHeroType();
         //then
-        assertEquals("Incorrect return value of hero type Knight.", "Monk", actualHeroType);
+        assertEquals("Incorrect return value of hero type Monk.", "Monk", actualHeroType);
     }
 
     @Test

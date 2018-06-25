@@ -23,7 +23,7 @@ public class KnightTests {
     public void testIfSettingNullAsNameThrowsException() {
         try {
             Hero knight = new Knight(null);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be null.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }
@@ -36,7 +36,7 @@ public class KnightTests {
             String name = "";
             //then
             Hero knight = new Knight(name);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be empty.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }

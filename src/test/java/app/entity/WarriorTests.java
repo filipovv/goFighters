@@ -23,7 +23,7 @@ public class WarriorTests {
     public void testIfSettingNullAsNameThrowsException() {
         try {
             Hero warrior = new Warrior(null);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be null.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }
@@ -36,7 +36,7 @@ public class WarriorTests {
             String name = "";
             //then
             Hero warrior = new Warrior(name);
-            fail("Expected exception did not occur.");
+            fail("Expected exception did not occur. Name of hero cannot be empty.");
         } catch (IllegalArgumentException e) {
             //If this block is reached there is no need for the exception to be handled.
         }
@@ -48,7 +48,7 @@ public class WarriorTests {
         //when
         warrior.takeDamage(Integer.MAX_VALUE);
         //then
-        assertFalse("Hero is not able to die.", warrior.isAlive());
+        assertFalse("Hero should be able to die.", warrior.isAlive());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class WarriorTests {
         //when
         attackDamage = warrior.attack();
         //then
-        assertThat("Damage should be greater than 0.", attackDamage, greaterThan(0));
+        assertThat("Attack damage should be greater than 0.", attackDamage, greaterThan(0));
     }
 
     @Test
@@ -91,6 +91,6 @@ public class WarriorTests {
         Hero warrior = new Warrior("testName");
         String actualHeroType = warrior.getHeroType();
         //then
-        assertEquals("Incorrect return value of hero type Knight.", "Warrior", actualHeroType);
+        assertEquals("Incorrect return value of hero type Warrior.", "Warrior", actualHeroType);
     }
 }
