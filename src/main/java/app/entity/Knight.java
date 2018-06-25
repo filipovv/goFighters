@@ -1,4 +1,4 @@
-package app.models;
+package app.entity;
 
 /**
  * Class Knight implements the properties and the functionality of a Knight type hero.
@@ -45,10 +45,10 @@ public class Knight extends Hero {
     @Override
     public String takeDamage(int damageTaken) {
         int generatedRandom = this.generateRandomNumberForChanceCalculation();
-        if (generatedRandom > BLOCK_CHANCE) {
-            return super.takeDamage(damageTaken);
+        if (generatedRandom <= BLOCK_CHANCE) {
+            return String.format("Knight %s successfully blocked the attack.", this.getName());
         }
-        return String.format("Knight %s successfully blocked the attack.", this.getName());
+        return super.takeDamage(damageTaken);
     }
 
     /**
@@ -59,15 +59,5 @@ public class Knight extends Hero {
     @Override
     String getHeroType() {
         return HERO_TYPE;
-    }
-
-    /**
-     * Method used to provide summed information about the object of type Knight.
-     *
-     * @return String value, representing the information about the object.
-     */
-    @Override
-    public String toString() {
-        return String.format("Knight with the following stats:%nHealth points - %d%nAttack points - %d%nArmor points - %d%n", KNIGHT_HEALTH_POINTS, KNIGHT_ATTACK_POINTS, KNIGHT_ARMOR_POINTS);
     }
 }

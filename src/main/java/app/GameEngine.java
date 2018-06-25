@@ -1,6 +1,6 @@
 package app;
 
-import app.models.Hero;
+import app.entity.Hero;
 
 /**
  * GameEngine simulates the fight outcome between two heroes. Heroes fight until one of them dies.
@@ -16,24 +16,27 @@ public class GameEngine {
      * @param secondHero This is the second hero
      */
     public GameEngine(Hero firstHero, Hero secondHero) {
-        this.firstHero = firstHero;
-        this.secondHero = secondHero;
+        this.setFirstHero(firstHero);
+        this.setSecondHero(secondHero);
     }
 
     /**
      * Method used for a hero to attack another hero
      *
-     * @param firstHero  This is the hero who is going to make an attack
-     * @param secondHero This is the hero who is going to defend himself
-     * @return String value, representing the outcome of the current attack.
+     * @param fightResult This is the ongoing game log.
+     * @param firstHero   This is the hero who is going to make an attack
+     * @param secondHero  This is the hero who is going to defend himself
      */
-    private String attack(Hero firstHero, Hero secondHero) {
-        StringBuilder attackOutcome = new StringBuilder();
-        attackOutcome.append(String.format("%s is attacking %s.", firstHero.getName(), secondHero.getName())).append(System.lineSeparator()).append(secondHero.takeDamage(firstHero.attack())).append(System.lineSeparator());
+    private void attack(StringBuilder fightResult, Hero firstHero, Hero secondHero) {
+        fightResult.append(String.format("%s is attacking %s.", firstHero.getName(), secondHero.getName()))
+                .append(System.lineSeparator())
+                .append(secondHero.takeDamage(firstHero.attack()))
+                .append(System.lineSeparator());
         if (!secondHero.isAlive()) {
-            attackOutcome.append(String.format("%n%s is the winner!", this.firstHero.getName())).append(System.lineSeparator());
+            fightResult.append(String.format("%n%s is the winner!", firstHero.getName()))
+                    .append(System.lineSeparator());
         }
-        return attackOutcome.toString();
+        fightResult.append(System.lineSeparator());
     }
 
     /**
@@ -44,13 +47,13 @@ public class GameEngine {
      */
     public String fight() {
         StringBuilder fightResult = new StringBuilder();
-        fightResult.append(this.gameIntro());
+        this.gameIntro(fightResult);
         while (this.firstHero.isAlive()) {
-            fightResult.append(this.attack(firstHero, secondHero)).append(System.lineSeparator());
-            if (!secondHero.isAlive()) {
+            this.attack(fightResult, this.firstHero, this.secondHero);
+            if (!this.secondHero.isAlive()) {
                 break;
             }
-            fightResult.append(this.attack(secondHero, firstHero)).append(System.lineSeparator());
+            this.attack(fightResult, this.secondHero, this.firstHero);
         }
         return fightResult.toString();
     }
@@ -58,10 +61,30 @@ public class GameEngine {
     /**
      * Method used to provide game intro information.
      *
-     * @return String value, representing the game intro.
+     * @param fightResult This is the ongoing game log.
      */
-    private String gameIntro() {
-        return "The battle is about to begin!" + System.lineSeparator() +
-                String.format("Hero one - %s%nHero two - %s%n", this.firstHero.toString(), this.secondHero.toString()) + "Fight!" + System.lineSeparator();
+    private void gameIntro(StringBuilder fightResult) {
+        fightResult.append("The battle is about to begin!")
+                .append(System.lineSeparator())
+                .append(String.format("Hero one - %s%nHero two - %s%n", this.firstHero.toString(), this.secondHero.toString()))
+                .append("Fight!")
+                .append(System.lineSeparator());
+    }
+
+    private void setFirstHero(Hero firstHero) {
+        if (firstHero == null) {
+            throw new IllegalArgumentException("First hero cannot be null");
+        }
+        this.firstHero = firstHero;
+    }
+
+    private void setSecondHero(Hero secondHero) {
+        if (secondHero == null) {
+            throw new IllegalArgumentException("Second hero cannot be null.");
+        }
+        if (this.firstHero.equals(secondHero)) {
+            throw new IllegalArgumentException("Second hero cannot be the same as the first one. Two are needed to play this game.");
+        }
+        this.secondHero = secondHero;
     }
 }

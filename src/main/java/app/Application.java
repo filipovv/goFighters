@@ -1,6 +1,6 @@
 package app;
 
-import app.models.*;
+import app.entity.*;
 
 /**
  * The Application program implements an application that

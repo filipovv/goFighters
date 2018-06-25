@@ -1,16 +1,15 @@
-package app.models;
+package app.entity;
 
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
  * Base class Hero used to provide basic functionality and properties to all classes that inherit it.
  */
 public abstract class Hero {
-    private static final double ATTACK_LOWER_BOUND_MULTIPLIER = 0.8;
-    private static final double ATTACK_HIGHER_BOUND_MULTIPLIER = 1.2;
-    private static final double DEFENCE_LOWER_BOUND_MULTIPLIER = 0.8;
-    private static final double DEFENCE_HIGHER_BOUND_MULTIPLIER = 1.2;
+    private static final double ATTACK_DEFENCE_LOWER_BOUND_MULTIPLIER = 0.8;
+    private static final double ATTACK_DEFENCE_HIGHER_BOUND_MULTIPLIER = 1.2;
 
     private String name;
     private int healthPoints;
@@ -59,8 +58,8 @@ public abstract class Hero {
      * @return Integer value, representing the attack force of the hero in his current attack.
      */
     public int attack() {
-        int lowerBound = (int) (this.getAttackPoints() * ATTACK_LOWER_BOUND_MULTIPLIER);
-        int higherBound = (int) (this.getAttackPoints() * ATTACK_HIGHER_BOUND_MULTIPLIER);
+        int lowerBound = (int) (this.getAttackPoints() * ATTACK_DEFENCE_LOWER_BOUND_MULTIPLIER);
+        int higherBound = (int) (this.getAttackPoints() * ATTACK_DEFENCE_HIGHER_BOUND_MULTIPLIER);
         return this.calculateRandomNumberFromBounds(lowerBound, higherBound);
     }
 
@@ -71,18 +70,22 @@ public abstract class Hero {
      * @return String value, representing the outcome of the received attack.
      */
     public String takeDamage(int damageTaken) {
-        int lowerBound = (int) (this.getArmorPoints() * DEFENCE_LOWER_BOUND_MULTIPLIER);
-        int higherBound = (int) (this.getArmorPoints() * DEFENCE_HIGHER_BOUND_MULTIPLIER);
+        int lowerBound = (int) (this.getArmorPoints() * ATTACK_DEFENCE_LOWER_BOUND_MULTIPLIER);
+        int higherBound = (int) (this.getArmorPoints() * ATTACK_DEFENCE_HIGHER_BOUND_MULTIPLIER);
         int shieldPoints = this.calculateRandomNumberFromBounds(lowerBound, higherBound);
 
         int healthPointsTaken = damageTaken - shieldPoints;
-
-        this.setHealthPoints(this.getHealthPoints() - healthPointsTaken);
-        if (this.getHealthPoints() <= 0) {
-            this.setHealthPoints(0);
-            return String.format("%s %s is dead.", this.getHeroType(), this.getName());
+        if (healthPointsTaken > 0) {
+            this.setHealthPoints(this.getHealthPoints() - healthPointsTaken);
+            if (this.getHealthPoints() <= 0) {
+                this.setHealthPoints(0);
+                return String.format("%s %s is dead.", this.getHeroType(), this.getName());
+            }
+            return String.format("%s %s took %d damage and is left with %d health points.",
+                    this.getHeroType(), this.getName(), healthPointsTaken, this.getHealthPoints());
+        } else {
+            return String.format("Attack was too weak and %s %s took no damage from it.", this.getHeroType(), this.getName());
         }
-        return String.format("%s %s took %d damage and is left with %d health points.", this.getHeroType(), this.getName(), healthPointsTaken, this.getHealthPoints());
     }
 
     /**
@@ -99,6 +102,32 @@ public abstract class Hero {
      */
     public boolean isAlive() {
         return this.getHealthPoints() != 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Hero)) {
+            return false;
+        }
+
+        Hero hero = (Hero) obj;
+        boolean check = this.getName().equalsIgnoreCase(hero.getName()) && this.getHeroType().equalsIgnoreCase(hero.getHeroType());
+        return check;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getName(), this.getHeroType());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s with the following stats:%nHealth points - %d%nAttack points - %d%nArmor points - %d%n",
+                this.getHeroType(), this.getHealthPoints(), this.getAttackPoints(), this.getArmorPoints());
     }
 
     /**
@@ -170,6 +199,9 @@ public abstract class Hero {
      * @param name String value to be set as the name of the hero.
      */
     private void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name of the hero cannot be null or empty.");
+        }
         this.name = name;
     }
 }
